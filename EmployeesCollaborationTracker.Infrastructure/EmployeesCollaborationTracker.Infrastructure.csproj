@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeesCollaborationTracker.Application\EmployeesCollaborationTracker.Application.csproj" />
+    <ProjectReference Include="..\EmployeesCollaborationTracker.Domain\EmployeesCollaborationTracker.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

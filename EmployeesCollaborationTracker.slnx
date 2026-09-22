@@ -3,5 +3,5 @@
   <Project Path="EmployeesCollaborationTracker.Domain/EmployeesCollaborationTracker.Domain.csproj" />
   <Project Path="EmployeesCollaborationTracker.Infrastructure/EmployeesCollaborationTracker.Infrastructure.csproj" />
   <Project Path="EmployeesCollaborationTracker.Tests/EmployeesCollaborationTracker.Tests.csproj" />
-  <Project Path="EmployeesCollaborationTracker/EmployeesCollaborationTracker.Web.csproj" />
+  <Project Path="EmployeesCollaborationTracker/EmployeesCollaborationTracker.Api.csproj" />
 </Solution>
