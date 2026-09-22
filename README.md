@@ -45,16 +45,11 @@ Pick a `.csv` file — the results table shows every collaborating pair's shared
 
 ## Running the tests
 
-Backend:
 ```
 dotnet test EmployeesCollaborationTracker.Tests
 ```
 
-Frontend:
-```
-cd EmployeesCollaborationTracker.Client
-ng test --watch=false
-```
+Covers the core collaboration algorithm (`CollaborationService`). There's no dedicated frontend test suite beyond Angular's default scaffold.
 
 ## API
 
