@@ -38,6 +38,10 @@ namespace EmployeesCollaborationTracker.Controllers
                 using var stream = file.OpenReadStream();
                 employeeProjects = await _fileReader.ReadAsync(stream, cancellationToken);
             }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
             catch (IOException ex)
             {
                 _logger.LogError(ex, "Failed to read the uploaded employees file {FileName}.", file.FileName);
