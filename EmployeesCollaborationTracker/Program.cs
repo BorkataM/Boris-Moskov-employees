@@ -33,8 +33,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("EmployeesCollaborationTrackerClient");
 
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

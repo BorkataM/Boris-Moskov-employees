@@ -4,9 +4,9 @@
 
   <div class="card">
     <div class="file-field">
-      <label class="file-label">
+      <label class="file-label" [class.disabled]="loading()">
         Choose CSV file
-        <input type="file" accept=".csv" (change)="onFileSelected($event)" />
+        <input type="file" accept=".csv" [disabled]="loading()" (change)="onFileSelected($event)" />
       </label>
       @if (fileName()) {
         <span class="file-name">{{ fileName() }}</span>

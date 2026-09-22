@@ -19,7 +19,7 @@ namespace EmployeesCollaborationTracker.Controllers
         }
 
         [HttpPost("collaborations")]
-        public IActionResult GetCollaborations(IFormFile file)
+        public async Task<IActionResult> GetCollaborations(IFormFile file, CancellationToken cancellationToken)
         {
             if (file == null || file.Length == 0)
             {
@@ -36,7 +36,7 @@ namespace EmployeesCollaborationTracker.Controllers
             try
             {
                 using var stream = file.OpenReadStream();
-                employeeProjects = _fileReader.Read(stream);
+                employeeProjects = await _fileReader.ReadAsync(stream, cancellationToken);
             }
             catch (IOException ex)
             {

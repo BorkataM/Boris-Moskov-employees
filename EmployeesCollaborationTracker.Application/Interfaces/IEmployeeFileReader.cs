@@ -4,6 +4,6 @@ namespace EmployeesCollaborationTracker.Application.Interfaces
 {
     public interface IEmployeeFileReader
     {
-        List<EmployeeProject> Read(Stream fileStream);
+        Task<List<EmployeeProject>> ReadAsync(Stream fileStream, CancellationToken cancellationToken = default);
     }
 }

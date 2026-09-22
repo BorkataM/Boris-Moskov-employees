@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { CollaborationResult } from '../models/collaboration.model';
+
+const API_URL = 'http://localhost:5036/api/employees/collaborations';
 
 @Injectable({ providedIn: 'root' })
 export class CollaborationService {
@@ -12,6 +13,6 @@ export class CollaborationService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<CollaborationResult[]>(environment.apiUrl, formData);
+    return this.http.post<CollaborationResult[]>(API_URL, formData);
   }
 }

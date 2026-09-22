@@ -1,4 +1,4 @@
-﻿using EmployeesCollaborationTracker.Application.Interfaces;
+using EmployeesCollaborationTracker.Application.Interfaces;
 using EmployeesCollaborationTracker.Domain.Entities;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +15,7 @@ namespace EmployeesCollaborationTracker.Infrastructure.FileReaders
             _logger = logger;
         }
 
-        public List<EmployeeProject> Read(Stream fileStream)
+        public async Task<List<EmployeeProject>> ReadAsync(Stream fileStream, CancellationToken cancellationToken = default)
         {
             if (fileStream == null)
             {
@@ -29,7 +29,7 @@ namespace EmployeesCollaborationTracker.Infrastructure.FileReaders
                 string? line;
                 var isFirstLine = true;
 
-                while ((line = reader.ReadLine()) != null)
+                while ((line = await reader.ReadLineAsync(cancellationToken)) != null)
                 {
                     if (string.IsNullOrWhiteSpace(line))
                     {
@@ -64,7 +64,7 @@ namespace EmployeesCollaborationTracker.Infrastructure.FileReaders
 
         private EmployeeProject? ParseLine(string line)
         {
-            var parts = line.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            var parts = line.Split(',');
 
             if (parts.Length != 4)
             {
@@ -83,6 +83,11 @@ namespace EmployeesCollaborationTracker.Infrastructure.FileReaders
 
             var dateFrom = _dateParser.Parse(parts[2]);
             var dateTo = _dateParser.Parse(parts[3]);
+
+            if (dateFrom > dateTo)
+            {
+                return null;
+            }
 
             return new EmployeeProject
             {

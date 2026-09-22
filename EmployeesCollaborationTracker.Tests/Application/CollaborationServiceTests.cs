@@ -44,6 +44,7 @@ namespace EmployeesCollaborationTracker.Tests.Application
             var employeeProjects = new List<EmployeeProject>
             {
                 new() { EmployeeId = 1, ProjectId = 1, DateFrom = new DateOnly(2020, 1, 1), DateTo = new DateOnly(2020, 6, 1) },
+                new() { EmployeeId = 1, ProjectId = 1, DateFrom = new DateOnly(2020, 2, 1), DateTo = new DateOnly(2020, 7, 1) },
             };
 
             var result = _sut.GetCollaboratingPairs(employeeProjects);
