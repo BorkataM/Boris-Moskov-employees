@@ -1,0 +1,54 @@
+<main>
+  <h1>Employee Collaboration Tracker</h1>
+  <p class="subtitle">Upload a CSV file to find employees who worked together.</p>
+
+  <div class="card">
+    <div class="file-field">
+      <label class="file-label">
+        Choose CSV file
+        <input type="file" accept=".csv" (change)="onFileSelected($event)" />
+      </label>
+      @if (fileName()) {
+        <span class="file-name">{{ fileName() }}</span>
+      }
+    </div>
+
+    @if (loading()) {
+      <div class="status">
+        <span class="spinner"></span>
+        Processing file...
+      </div>
+    }
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    @if (!loading() && !error() && fileName() && rows().length === 0) {
+      <p class="empty">No overlapping collaborations were found in this file.</p>
+    }
+
+    @if (rows().length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Employee ID #1</th>
+            <th>Employee ID #2</th>
+            <th>Project ID</th>
+            <th>Days worked</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of rows(); track $index) {
+            <tr>
+              <td>{{ row.employeeId1 }}</td>
+              <td>{{ row.employeeId2 }}</td>
+              <td>{{ row.projectId }}</td>
+              <td>{{ row.daysWorked }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</main>
