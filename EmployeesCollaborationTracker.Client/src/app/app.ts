@@ -37,11 +37,8 @@ export class App {
         this.rows.set(results.flatMap((result) => result.projects));
         this.loading.set(false);
       },
-      error: (err) => {
-        const message = typeof err?.error === 'string' && err.error.length > 0
-          ? err.error
-          : 'Failed to process the file.';
-        this.error.set(message);
+      error: (err: Error) => {
+        this.error.set(err.message);
         this.loading.set(false);
       },
     });
