@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CollaborationService } from './services/collaboration.service';
-import { ProjectCollaborationRow } from './models/collaboration.model';
+import { CollaborationResult, ProjectCollaborationRow } from './models/collaboration.model';
 
 @Component({
   imports: [],
@@ -15,6 +15,7 @@ export class App {
   protected readonly error = signal<string | null>(null);
   protected readonly rows = signal<ProjectCollaborationRow[]>([]);
   protected readonly fileName = signal<string | null>(null);
+  protected readonly topPair = signal<CollaborationResult | null>(null);
 
   protected onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -27,10 +28,12 @@ export class App {
     this.fileName.set(file.name);
     this.error.set(null);
     this.rows.set([]);
+    this.topPair.set(null);
     this.loading.set(true);
 
     this.collaborationService.getCollaborations(file).subscribe({
       next: (results) => {
+        this.topPair.set(results[0] ?? null);
         this.rows.set(results.flatMap((result) => result.projects));
         this.loading.set(false);
       },

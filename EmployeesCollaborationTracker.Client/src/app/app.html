@@ -28,6 +28,13 @@
       <p class="empty">No overlapping collaborations were found in this file.</p>
     }
 
+    @if (topPair(); as top) {
+      <p class="winner">
+        Employees <strong>{{ top.employeeId1 }}</strong> and <strong>{{ top.employeeId2 }}</strong>
+        worked together the longest: <strong>{{ top.totalDaysWorked }}</strong> days total.
+      </p>
+    }
+
     @if (rows().length > 0) {
       <table>
         <thead>
