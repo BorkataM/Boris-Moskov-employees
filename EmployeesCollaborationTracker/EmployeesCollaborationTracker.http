@@ -1,6 +1,12 @@
 @EmployeesCollaborationTracker_HostAddress = http://localhost:5036
 
-GET {{EmployeesCollaborationTracker_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{EmployeesCollaborationTracker_HostAddress}}/api/employees/collaborations
+Content-Type: multipart/form-data; boundary=----EmployeesCollaborationTrackerBoundary
+
+------EmployeesCollaborationTrackerBoundary
+Content-Disposition: form-data; name="file"; filename="employees.csv"
+Content-Type: text/csv
+
+------EmployeesCollaborationTrackerBoundary--
 
 ###
