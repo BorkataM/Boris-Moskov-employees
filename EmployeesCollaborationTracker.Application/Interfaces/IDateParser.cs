@@ -4,7 +4,8 @@ using System.Text;
 
 namespace EmployeesCollaborationTracker.Application.Interfaces
 {
-    internal interface IDateParser
+    public interface IDateParser
     {
+        DateOnly Parse(string? value);
     }
 }
