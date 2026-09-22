@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EmployeesCollaborationTracker.Domain.Entities
+﻿namespace EmployeesCollaborationTracker.Domain.Entities
 {
-    internal class EmployeeProject
+    public class EmployeeProject
     {
+        public int EmployeeId { get; set; }
+        public int ProjectId { get; set; }
+        public DateOnly DateFrom { get; set; }
+        public DateOnly DateTo { get; set; }
     }
 }
+ 

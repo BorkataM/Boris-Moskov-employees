@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EmployeesCollaborationTracker.Application.DTOs;
+using EmployeesCollaborationTracker.Domain.Entities;
 
 namespace EmployeesCollaborationTracker.Application.Interfaces
 {
-    internal interface ICollaborationService
+    public interface ICollaborationService
     {
+        List<CollaborationResultDto> GetCollaboratingPairs(IEnumerable<EmployeeProject> employeeProjects);
     }
 }
