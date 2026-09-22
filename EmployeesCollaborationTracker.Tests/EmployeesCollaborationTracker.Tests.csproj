@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EmployeesCollaborationTracker.Application\EmployeesCollaborationTracker.Application.csproj" />
     <ProjectReference Include="..\EmployeesCollaborationTracker.Domain\EmployeesCollaborationTracker.Domain.csproj" />
-    <ProjectReference Include="..\EmployeesCollaborationTracker.Infrastructure\EmployeesCollaborationTracker.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
