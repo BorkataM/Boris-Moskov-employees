@@ -8,6 +8,11 @@ namespace EmployeesCollaborationTracker.Application.Services
     {
         public List<CollaborationResultDto> GetCollaboratingPairs(IEnumerable<EmployeeProject> employeeProjects)
         {
+            if (employeeProjects == null)
+            {
+                throw new ArgumentNullException(nameof(employeeProjects));
+            }
+
             var projects = new List<ProjectCollaborationDto>();
 
             foreach (var group in employeeProjects.GroupBy(e => e.ProjectId))
@@ -56,19 +61,9 @@ namespace EmployeesCollaborationTracker.Application.Services
                 return null;
             }
 
-            int id1;
-            int id2;
-
-            if (a.EmployeeId < b.EmployeeId)
-            {
-                id1 = a.EmployeeId;
-                id2 = b.EmployeeId;
-            }
-            else
-            {
-                id1 = b.EmployeeId;
-                id2 = a.EmployeeId;
-            }
+            var (id1, id2) = a.EmployeeId < b.EmployeeId
+                ? (a.EmployeeId, b.EmployeeId)
+                : (b.EmployeeId, a.EmployeeId);
 
             return new ProjectCollaborationDto
             {

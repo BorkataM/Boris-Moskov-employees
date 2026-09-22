@@ -1,24 +1,33 @@
 ﻿using EmployeesCollaborationTracker.Application.Interfaces;
 using EmployeesCollaborationTracker.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeesCollaborationTracker.Infrastructure.FileReaders
 {
     public class CsvEmployeeFileReader : IEmployeeFileReader
     {
         private readonly IDateParser _dateParser;
+        private readonly ILogger<CsvEmployeeFileReader> _logger;
 
-        public CsvEmployeeFileReader(IDateParser dateParser)
+        public CsvEmployeeFileReader(IDateParser dateParser, ILogger<CsvEmployeeFileReader> logger)
         {
             _dateParser = dateParser;
+            _logger = logger;
         }
 
         public List<EmployeeProject> Read(Stream fileStream)
         {
+            if (fileStream == null)
+            {
+                throw new ArgumentNullException(nameof(fileStream));
+            }
+
             var result = new List<EmployeeProject>();
 
             using (var reader = new StreamReader(fileStream))
             {
                 string? line;
+                var isFirstLine = true;
 
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -27,10 +36,25 @@ namespace EmployeesCollaborationTracker.Infrastructure.FileReaders
                         continue;
                     }
 
-                    var record = ParseLine(line);
-                    if (record != null)
+                    try
                     {
-                        result.Add(record);
+                        var record = ParseLine(line);
+                        if (record != null)
+                        {
+                            result.Add(record);
+                        }
+                        else if (!isFirstLine)
+                        {
+                            _logger.LogWarning("Skipped malformed CSV line: '{Line}'.", line);
+                        }
+                    }
+                    catch (FormatException ex)
+                    {
+                        _logger.LogWarning(ex, "Skipped CSV line due to an unparsable date: '{Line}'.", line);
+                    }
+                    finally
+                    {
+                        isFirstLine = false;
                     }
                 }
             }
